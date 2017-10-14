@@ -1,7 +1,14 @@
 package com.artechra.burner;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
 
 public class Burner {
 
@@ -33,11 +40,16 @@ public class Burner {
       try {
         long startTime = System.currentTimeMillis() ;
         while(System.currentTimeMillis() < startTime + msec) {
-           Thread.sleep(100);
+            KeyGenerator kg = KeyGenerator.getInstance("AES") ;
+            kg.init(128);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, kg.generateKey()) ;
+            cipher.doFinal("ABCDEFGHIJKLMNOPQRSTUVWXYZ".getBytes());
         }
-     } catch(InterruptedException ie) {
-        LOG.warning("Interruption while waiting: " + ie);
-        throw new RuntimeException(ie) ;
+     } catch(Exception e) {
+        LOG.warning("Exception while burning: " + e);
+        e.printStackTrace();
+        throw new RuntimeException(e) ;
      }
     }
 }
