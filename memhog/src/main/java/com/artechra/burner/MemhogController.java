@@ -6,14 +6,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BurnerController {
+public class MemhogController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/burncpu")
-    public Burner burncpu(@RequestParam(value="time_msec", defaultValue="1000") int time_msec) {
-        return new Burner(counter.incrementAndGet(), time_msec) ;
+    @RequestMapping("/hogmemory")
+    public Memhog hogmemory(@RequestParam(value="mem_mb", defaultValue="1") int mem_mb,
+                            @RequestParam(value="duration_msec", defaultValue="10000") int duration_msec) {
+        return new Memhog(counter.incrementAndGet(), mem_mb, duration_msec) ;
     }
 }
 
