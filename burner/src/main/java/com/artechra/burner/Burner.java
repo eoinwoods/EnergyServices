@@ -42,12 +42,12 @@ public class Burner {
         while(System.currentTimeMillis() < startTime + msec) {
             KeyGenerator kg = KeyGenerator.getInstance("AES") ;
             kg.init(128);
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+            Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, kg.generateKey()) ;
             cipher.doFinal("ABCDEFGHIJKLMNOPQRSTUVWXYZ".getBytes());
         }
      } catch(Exception e) {
-        LOG.warning("Exception while burning: " + e);
+        LOG.warning("Exception while burning CPU: " + e);
         e.printStackTrace();
         throw new RuntimeException(e) ;
      }
