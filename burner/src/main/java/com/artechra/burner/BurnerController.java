@@ -6,15 +6,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GreeterController {
+public class BurnerController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/greeting")
-    public Greeter greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Greeter(counter.incrementAndGet(),
-                           String.format(template, name));
+    @RequestMapping("/burncpu")
+    public Burner greeting(@RequestParam(value="time_msec", defaultValue="1000") int time_msec) {
+        return new Burner(counter.incrementAndGet(), time_msec) ;
     }
 }
 
