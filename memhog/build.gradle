@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
  compile("org.springframework.boot:spring-boot-starter-web")
+ compile("org.springframework.boot:spring-boot-starter-actuator")
  compile "joda-time:joda-time:2.2"
  testCompile "junit:junit:4.12"
  testCompile('org.springframework.boot:spring-boot-starter-test')

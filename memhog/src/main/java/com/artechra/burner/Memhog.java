@@ -30,24 +30,25 @@ public class Memhog {
         return retval;
     }
 
-    private void hogMemory(int mbytes, int msec) {
-        LOG.info("Allocating %d 1024 byte byte-arrays");
+    protected void hogMemory(int mbytes, int msec) {
+        LOG.info(String.format("Allocating %d 1024 byte byte-arrays", mbytes));
         byte[][] arrays = new byte[mbytes][1024];
         for (int item=0; item < mbytes; item++) {
             arrays[item] = allocateByteArray(1024) ;
         }
         try {
             Thread.sleep(msec);
-            arrays = null ;
         } catch (InterruptedException ie) {
             LOG.warning("Interruption while waiting: " + ie);
             arrays = null ;
             throw new RuntimeException(ie);
+        } finally {
+            arrays = null ;
         }
 
     }
 
-    private byte[] allocateByteArray(int sizeBytes) {
+    protected byte[] allocateByteArray(int sizeBytes) {
         byte[] ret = new byte[sizeBytes];
         Random rand = new Random();
         rand.nextBytes(ret);

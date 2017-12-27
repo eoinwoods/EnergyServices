@@ -1,0 +1,5 @@
+rootProject.name = 'energyservices'
+include 'burner'
+include 'memhog'
+include 'datahog'
+
