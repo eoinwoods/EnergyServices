@@ -1,5 +1,5 @@
 rootProject.name = 'energyservices'
-include 'burner'
+include 'cpuhog'
 include 'memhog'
 include 'datahog'
 

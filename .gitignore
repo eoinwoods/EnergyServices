@@ -4,9 +4,11 @@
 # Build directories
 build/
 .gradle/
+out/
 
-# IDE directories
+# IDE directories and files
 .idea/
+*.iml
 
 # Log file
 *.log
