@@ -1,5 +1,6 @@
 package com.artechra.cpuhog;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
 import javax.crypto.Cipher;
@@ -8,6 +9,8 @@ import javax.crypto.KeyGenerator;
 public class Cpuhog {
 
     private final Logger LOG = Logger.getLogger(Cpuhog.class.getName());
+    private KeyGenerator kg ;
+    private Cipher cipher ;
 
 
     private final long id;
@@ -16,6 +19,15 @@ public class Cpuhog {
     public Cpuhog(long id, int time_msec) {
         this.id = id;
         this.time_msec = time_msec;
+        try {
+            this.kg = KeyGenerator.getInstance("AES");
+            this.cipher = Cipher.getInstance("AES");
+            this.cipher.init(Cipher.ENCRYPT_MODE, kg.generateKey()) ;
+        } catch(Exception e) {
+            throw new IllegalStateException("Unable to initialise cryptographic system to burn CPU", e);
+        }
+        this.kg.init(128);
+
     }
 
     public long getId() {
@@ -23,28 +35,23 @@ public class Cpuhog {
     }
 
     public String getContent() {
-        String retval = String.format("Burned time for %d msec", time_msec) ;
-	     LOG.info("Starting burn process for getContent()");
-	     burnTimeMsec(this.time_msec) ;
-	     LOG.info("Completed burn process for getContent() --> '" +
-                         retval + "')");
-       return retval;
+        long start = System.currentTimeMillis() ;
+        burnTimeMsec(this.time_msec) ;
+        long end = System.currentTimeMillis() ;
+        String retval = String.format("Burned time for %d msec", (end - start)) ;
+        return retval;
     }
 
     private void burnTimeMsec(long msec) {
       try {
         long startTime = System.currentTimeMillis() ;
         while(System.currentTimeMillis() < startTime + msec) {
-            KeyGenerator kg = KeyGenerator.getInstance("AES") ;
-            kg.init(128);
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.ENCRYPT_MODE, kg.generateKey()) ;
-            cipher.doFinal("ABCDEFGHIJKLMNOPQRSTUVWXYZ".getBytes());
+            this.cipher.doFinal("ABCDEFGHIJKLMNOPQRSTUVWXYZ".getBytes());
         }
      } catch(Exception e) {
         LOG.warning("Exception while burning CPU: " + e);
-        e.printStackTrace();
-        throw new RuntimeException(e) ;
+        throw new RuntimeException("Exception while burning CPU", e) ;
+
      }
     }
 }
