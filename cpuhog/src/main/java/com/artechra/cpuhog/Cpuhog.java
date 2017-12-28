@@ -1,6 +1,5 @@
 package com.artechra.cpuhog;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
 import javax.crypto.Cipher;
@@ -35,6 +34,7 @@ public class Cpuhog {
     }
 
     public String getContent() {
+        LOG.info("Cpuhog called for " + this.time_msec + " msec") ;
         long start = System.currentTimeMillis() ;
         burnTimeMsec(this.time_msec) ;
         long end = System.currentTimeMillis() ;

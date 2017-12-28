@@ -1,5 +1,8 @@
 package com.artechra.cpuhog;
 
+import java.util.logging.Logger;
+import java.util.logging.Level ;
+
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
@@ -17,6 +20,12 @@ public class TestCpuhog {
     }
 
     private void runCpuhogForTime(int id, int timeMsec, int toleranceMsec) {
+        // A log statement in the getContent() method can add 10msec of
+        // execution time and so needs switched off to avoid messing with
+        // the test timings
+        Logger cpuhogLogger = Logger.getLogger(Cpuhog.class.getName()) ;
+        cpuhogLogger.setLevel(Level.SEVERE);
+        
         Cpuhog hog = new Cpuhog(id,timeMsec);
 
         long start = System.currentTimeMillis() ;
