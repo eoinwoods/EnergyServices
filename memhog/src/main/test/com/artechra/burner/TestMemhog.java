@@ -1,4 +1,4 @@
-package com.artechra.burner;
+package com.artechra.cpuhog;
 
 import org.junit.Test;
 

@@ -1,24 +1,19 @@
-package com.artechra.burner;
+package com.artechra.cpuhog;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
 
-public class Burner {
+public class Cpuhog {
 
-    private final Logger LOG = Logger.getLogger(Burner.class.getName());
+    private final Logger LOG = Logger.getLogger(Cpuhog.class.getName());
 
 
     private final long id;
     private final int  time_msec;
 
-    public Burner(long id, int time_msec) {
+    public Cpuhog(long id, int time_msec) {
         this.id = id;
         this.time_msec = time_msec;
     }

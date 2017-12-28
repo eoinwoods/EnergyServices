@@ -1,4 +1,4 @@
-package com.artechra.burner;
+package com.artechra.cpuhog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

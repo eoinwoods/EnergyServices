@@ -1,4 +1,4 @@
-package com.artechra.burner;
+package com.artechra.cpuhog;
 
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.artechra.burner;
+package com.artechra.cpuhog;
 
 import java.util.Random;
 import java.util.logging.Logger;
