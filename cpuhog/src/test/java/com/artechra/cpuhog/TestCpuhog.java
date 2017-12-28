@@ -8,13 +8,23 @@ public class TestCpuhog {
 
     @Test
     public void testShortBurnTime() {
-        Cpuhog hog = new Cpuhog(1, 10);
+        runCpuhogForTime(1, 10, 2);
+    }
+
+    @Test
+    public void testLongBurnTime() {
+        runCpuhogForTime(2, 5 * 1000, 5);
+    }
+
+    private void runCpuhogForTime(int id, int timeMsec, int toleranceMsec) {
+        Cpuhog hog = new Cpuhog(id,timeMsec);
 
         long start = System.currentTimeMillis() ;
         hog.getContent() ;
         long end = System.currentTimeMillis() ;
 
         long diff = end - start ;
-        assertTrue("Unexpected run time of " + diff + " msec",Math.abs(diff - 10) < 3);
+        assertTrue("Unexpected run time of " + diff + " msec",Math.abs(diff - timeMsec) < toleranceMsec);
     }
+
 }
