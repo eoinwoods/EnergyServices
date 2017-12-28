@@ -25,7 +25,7 @@ public class TestCpuhog {
         // the test timings
         Logger cpuhogLogger = Logger.getLogger(Cpuhog.class.getName()) ;
         cpuhogLogger.setLevel(Level.SEVERE);
-        
+
         Cpuhog hog = new Cpuhog(id,timeMsec);
 
         long start = System.currentTimeMillis() ;
