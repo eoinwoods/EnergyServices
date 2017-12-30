@@ -35,11 +35,8 @@ dependencies {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-def serverport = 9002
-
 jar {
     baseName = 'datahog-service'
-    version =  '1.0.0'
 }
 
 

@@ -14,7 +14,6 @@ dependencies {
 
 jar {
     baseName = 'cpuhog-service'
-    version =  '1.0.0'
 }
 
 def serverport = "9001"

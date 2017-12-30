@@ -27,7 +27,6 @@ targetCompatibility = 1.8
 
 jar {
     baseName = 'memhog-service'
-    version =  '1.0.0'
 }
 
 
