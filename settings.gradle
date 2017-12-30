@@ -2,4 +2,5 @@ rootProject.name = 'energyservices'
 include 'cpuhog'
 include 'memhog'
 include 'datahog'
+include 'gateway'
 

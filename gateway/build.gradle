@@ -13,11 +13,11 @@ dependencies {
 }
 
 jar {
-    baseName = 'cpuhog-service'
+    baseName = 'gateway-service'
     version =  '1.0.0'
 }
 
-def serverport = "9001"
+def serverport = "9999"
 group = "eoinwoods"
 
 docker {
