@@ -1,7 +1,9 @@
 package com.artechra.gateway;
 
+import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.web.client.RestTemplate;
@@ -10,9 +12,9 @@ public class Gateway {
 
 
     RestTemplate restTemplate = new RestTemplate();
-    ObjectMapper mapper = new ObjectMapper() ;
-
     public Gateway(long id, String scenario) {
+
+
 
     }
 

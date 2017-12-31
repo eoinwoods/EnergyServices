@@ -1,0 +1,30 @@
+[
+    {
+        "name" : "multi-step-scenario",
+        "invocations" : [
+            {
+                "serviceName" : "service1",
+                "params" : {
+                    "p1" : "v1",
+                    "p2" : "v2"
+                }
+            },
+            {
+                "serviceName" : "service2",
+                "params" : {
+                    "p3" : "v3",
+                    "p4" : "v4"
+                }
+
+            },
+            {
+                "serviceName" : "service3",
+                "params" : {
+                }
+            },
+            {
+                "serviceName" : "service3"
+            }
+        ]
+    }
+]
