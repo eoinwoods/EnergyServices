@@ -34,19 +34,52 @@ public class TestScenarioRepository {
         List<Invocation> invocations = s.getInvocations() ;
         Invocation i0 = invocations.get(0) ;
         assertEquals("Wrong service for invocation 0", "service1", i0.getServiceName());
+        Invocation i1 = invocations.get(1) ;
+        assertEquals("Wrong service for invocation 1", "service2", i1.getServiceName());
+        Invocation i2 = invocations.get(2) ;
+        assertEquals("Wrong service for invocation 1", "service3", i2.getServiceName()) ;
+        Invocation i3 = invocations.get(3) ;
+        assertEquals("Wrong service for invocation 1", "service4", i3.getServiceName()) ;
+    }
+
+    @Test
+    public void testMultiStepScenarioAllowsExplicitExtractionOfInvocationData() {
+        ScenarioRepository sr = new ScenarioRepository("multi_step_scenario.json") ;
+        List<Scenario> scenarios = sr.getScenarios() ;
+        Invocation i0 = scenarios.get(0).getInvocations().get(0) ;
+        assertEquals("Wrong service for invocation 0", "service1", i0.getServiceName());
         assertEquals("Wrong value for parameter p1 in invocation 0", "v1", i0.getParams().get("p1")) ;
         assertEquals("Wrong value for parameter p2 in invocation 0", "v2", i0.getParams().get("p2")) ;
+    }
 
+    @Test
+    public void testMultiStepScenarioReturnsCorrectObjectForInvocationItem() {
+        ScenarioRepository sr = new ScenarioRepository("multi_step_scenario.json") ;
+        List<Scenario> scenarios = sr.getScenarios() ;
+        Invocation i1 = scenarios.get(0).getInvocations().get(1) ;
         assertEquals("Wrong invocation i1",
                 new Invocation("service2",
                         new HashMap<String,String>(){{
                             put("p3", "v3");
                             put("p4", "v4");
-                        }}), invocations.get(1)) ;
-        Invocation i2 = invocations.get(2) ;
-        assertEquals("Wrong invocation i2 serviceName", "service3", i2.getServiceName()) ;
-        assertEquals("Unexpected invocation i2 params", 0, i2.getParams().size());
-
-        assertNull("Unexpected invocation i3 params", invocations.get(3).getParams());
+                        }}), i1) ;
     }
+
+    @Test
+    public void testThatEmptyParamsArrayResultsInEmptyJavaList() {
+        ScenarioRepository sr = new ScenarioRepository("multi_step_scenario.json") ;
+        List<Scenario> scenarios = sr.getScenarios() ;
+        Invocation i2 = scenarios.get(0).getInvocations().get(2) ;
+        assertEquals("Unexpected invocation i2 params", 0, i2.getParams().size());
+    }
+
+    @Test
+    public void testThatMissingParamsArrayResultsInNullJavaAttribute() {
+        ScenarioRepository sr = new ScenarioRepository("multi_step_scenario.json") ;
+        List<Scenario> scenarios = sr.getScenarios() ;
+        Invocation i3 = scenarios.get(0).getInvocations().get(3) ;
+        assertNull("Unexpected invocation i3 params", i3.getParams());
+    }
+
+
 }
