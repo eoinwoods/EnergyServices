@@ -12,7 +12,7 @@ public class Gateway {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper mapper = new ObjectMapper() ;
 
-    public Gateway(long id) {
+    public Gateway(long id, String scenario) {
 
     }
 
