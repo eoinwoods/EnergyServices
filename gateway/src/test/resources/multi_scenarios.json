@@ -1,0 +1,19 @@
+[
+    {
+        "name" : "scenario1",
+        "invocations" : []
+    },
+    {
+        "name" : "scenario2",
+        "invocations" : [
+            {
+                "serviceName" : "s2",
+                "params" : {}
+            }
+        ]
+    },
+    {
+        "name" : "scenario3",
+        "invocations" : []
+    }
+]

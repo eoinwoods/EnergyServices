@@ -81,5 +81,17 @@ public class TestScenarioRepository {
         assertNull("Unexpected invocation i3 params", i3.getParams());
     }
 
+    @Test
+    public void testThatMultipleScenariosInOneFileCanBeExtracted() {
+        ScenarioRepository sr = new ScenarioRepository("multi_scenarios.json") ;
+        List<Scenario> scenarios = sr.getScenarios() ;
+        assertEquals("Wrong number of scenarios", 3, scenarios.size()) ;
+        assertEquals("Wrong scenario 1 name", "scenario1", scenarios.get(0).getName()) ;
+        assertEquals("Wrong scenario 2 name", "scenario2", scenarios.get(1).getName()) ;
+        assertEquals("Wrong scenario 3 name", "scenario3", scenarios.get(2).getName()) ;
+        Invocation s2i0 = scenarios.get(1).getInvocations().get(0) ;
+        assertEquals("Wrong service name for s2.i0", "s2", s2i0.getServiceName());
+    }
+
 
 }
