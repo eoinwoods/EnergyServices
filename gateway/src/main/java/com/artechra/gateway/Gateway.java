@@ -1,15 +1,13 @@
 package com.artechra.gateway;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Gateway {
 
+    private final Logger LOG = Logger.getLogger(Gateway.class.getName());
 
     private RestTemplate restTemplate = new RestTemplate();
     private long id ;
@@ -28,9 +26,11 @@ public class Gateway {
         if (s == null) {
             throw new IllegalArgumentException("Scenario " + this.scenarioName + " not found") ;
         }
+        LOG.info("Gateway running scenario " + this.scenarioName) ;
 
         StringBuilder ret = new StringBuilder("|") ;
         for (Invocation i : s.getInvocations()) {
+            LOG.info("--> Calling " + i.getServiceName()) ;
             ret.append(i.toString()) ;
             ret.append("|") ;
             switch(i.getServiceName()) {
@@ -48,12 +48,6 @@ public class Gateway {
             }
         }
         return ret.toString() ;
-    }
-
-    class Request {
-        public String name ;
-        public Map<String,String> params ;
-
     }
 
     private final String CPUHOG_URL = "http://localhost:9001/burncpu?time_msec={time_msec}" ;
