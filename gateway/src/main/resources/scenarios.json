@@ -1,0 +1,37 @@
+[
+    {
+        "name" : "single-cpu",
+        "invocations" : [
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "2500"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "three-cpu",
+        "invocations" : [
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "2000"
+                }
+            },
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "1000"
+                }
+            },
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "500"
+                }
+            }
+        ]
+    }
+
+]

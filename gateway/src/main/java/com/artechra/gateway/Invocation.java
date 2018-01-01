@@ -45,4 +45,16 @@ class Invocation {
 
         return Objects.hash(serviceName, params);
     }
+
+    @Override public String toString() {
+        StringBuilder ret = new StringBuilder(serviceName) ;
+        ret.append("(") ;
+        for (String k : params.keySet()) {
+            ret.append(k) ;
+            ret.append("=") ;
+            ret.append(params.get(k)) ;
+        }
+        ret.append(")") ;
+        return ret.toString() ;
+    }
 }
