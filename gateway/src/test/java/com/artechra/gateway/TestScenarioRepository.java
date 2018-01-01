@@ -93,5 +93,21 @@ public class TestScenarioRepository {
         assertEquals("Wrong service name for s2.i0", "s2", s2i0.getServiceName());
     }
 
+    @Test
+    public void testThatSingleScenarioCanBeRetrievedByName() {
+        ScenarioRepository sr = new ScenarioRepository("multi_scenarios.json") ;
+        Scenario s2 = sr.getScenario("scenario2") ;
+        assertEquals("Wrong name for s2", "scenario2", s2.getName()) ;
+        assertEquals("Wrong invocation list length for s2", 1, s2.getInvocations().size()) ;
+    }
+
+    @Test
+    public void testThatUnknownScenarioNameReturnsNull() {
+        ScenarioRepository sr = new ScenarioRepository("multi_scenarios.json") ;
+        Scenario s1 = sr.getScenario("DOESNOTEXIST") ;
+        assertNull("Unexpected scenario returned", s1) ;
+
+    }
+
 
 }

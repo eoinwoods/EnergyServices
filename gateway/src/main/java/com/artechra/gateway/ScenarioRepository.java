@@ -6,6 +6,9 @@ import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ScenarioRepository {
 
     private final String fileName;
@@ -27,5 +30,16 @@ public class ScenarioRepository {
         } catch(java.io.IOException ioe) {
             throw new IllegalArgumentException("Could not read scenarios from '" + this.fileName + "'", ioe) ;
         }
+    }
+
+    public Scenario getScenario(String scenarioName) {
+        Scenario ret = null ;
+        for (Scenario s : this.getScenarios()) {
+            if (s.getName().equals(scenarioName)) {
+                ret = s ;
+                break ;
+            }
+        }
+        return ret ;
     }
 }
