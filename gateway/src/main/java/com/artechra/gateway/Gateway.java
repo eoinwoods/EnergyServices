@@ -1,32 +1,35 @@
 package com.artechra.gateway;
 
-import java.util.Map;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+@Component()
 public class Gateway {
 
     private final Logger LOG = Logger.getLogger(Gateway.class.getName());
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
+
     private long id ;
-    private String scenarioName ;
 
     private ScenarioRepository scenarioRepository;
 
-    public Gateway(long id, String scenario, ScenarioRepository scenarioRepository) {
+    public Gateway(@Value("#{appConfig.getNextId()}")long id, ScenarioRepository scenarioRepository) {
         this.id = id ;
-        this.scenarioName = scenario ;
         this.scenarioRepository = scenarioRepository ;
     }
 
-    public String getContent() {
-        Scenario s = this.scenarioRepository.getScenario(this.scenarioName) ;
+    public String invokeServices(String scenarioName) {
+        Scenario s = this.scenarioRepository.getScenario(scenarioName) ;
         if (s == null) {
-            throw new IllegalArgumentException("Scenario " + this.scenarioName + " not found") ;
+            throw new IllegalArgumentException("Scenario " + scenarioName + " not found") ;
         }
-        LOG.info("Gateway running scenario " + this.scenarioName) ;
+        LOG.info("Gateway running scenario " + scenarioName) ;
 
         StringBuilder ret = new StringBuilder("|") ;
         for (Invocation i : s.getInvocations()) {
