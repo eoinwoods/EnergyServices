@@ -1,5 +1,6 @@
 package com.artechra.gateway;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -12,34 +13,35 @@ import org.springframework.stereotype.Component;
 public class ScenarioRepository {
 
     private final String fileName;
-    private final TypeReference<List<Scenario>> tr = new TypeReference<List<Scenario>>(){} ;
-    private final ObjectMapper mapper = new ObjectMapper() ;
-    private final InputStream scenarioStream ;
+    private final TypeReference<List<Scenario>> tr = new TypeReference<List<Scenario>>() {
+    };
+    private final ObjectMapper mapper = new ObjectMapper();
+    private final List<Scenario> scenarioList;
 
     public ScenarioRepository(String fileName) {
         this.fileName = fileName;
-        this.scenarioStream = ScenarioRepository.class.getResourceAsStream("/"+fileName) ;
-        if (this.scenarioStream == null) {
-            throw new IllegalArgumentException("Could not open data file '" + fileName + "'") ;
-        }
-    }
-    public List<Scenario> getScenarios() {
-        try {
-            List<Scenario> scenarios = this.mapper.readValue(this.scenarioStream, this.tr);
-            return scenarios ;
-        } catch(java.io.IOException ioe) {
-            throw new IllegalArgumentException("Could not read scenarios from '" + this.fileName + "'", ioe) ;
+        try (InputStream scenarioStream = ScenarioRepository.class.getResourceAsStream("/" + fileName)) {
+            if (scenarioStream == null) {
+                throw new IllegalArgumentException("Could not open data file '" + fileName + "'");
+            }
+            this.scenarioList = this.mapper.readValue(scenarioStream, this.tr);
+        } catch(IOException ioe) {
+            throw new IllegalArgumentException("Could not read scenarios from file " + fileName, ioe) ;
         }
     }
 
+    public List<Scenario> getScenarios() {
+        return this.scenarioList ;
+    }
+
     public Scenario getScenario(String scenarioName) {
-        Scenario ret = null ;
+        Scenario ret = null;
         for (Scenario s : this.getScenarios()) {
             if (s.getName().equals(scenarioName)) {
-                ret = s ;
-                break ;
+                ret = s;
+                break;
             }
         }
-        return ret ;
+        return ret;
     }
 }

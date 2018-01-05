@@ -109,5 +109,17 @@ public class TestScenarioRepository {
 
     }
 
+    @Test
+    public void testThatRepeatedCallsToRepositoryWorkCorrectly() {
+        ScenarioRepository sr = new ScenarioRepository("single_scenario.json") ;
+        String s1Name = "scenario1" ;
+        Scenario s1 = sr.getScenario(s1Name) ;
+        assertEquals("Wrong name for single_scenario", s1Name, s1.getName());
+        s1 = sr.getScenario(s1Name) ;
+        assertEquals("Wrong name for single_scenario", s1Name, s1.getName());
+        s1 = sr.getScenario(s1Name) ;
+        assertEquals("Wrong name for single_scenario", s1Name, s1.getName());
+
+    }
 
 }
