@@ -14,12 +14,33 @@ public class AppConfiguration {
     @Value("${scenario.file}")
     private String scenarioFileName ;
 
+    @Value("${cpuhog.url}")
+    private String cpuhogUrl ;
+
+    @Value("${memhog.url}")
+    private String memhogUrl ;
+
+    @Value("${datahog.url}")
+    private String datahogUrl ;
+
     public String getScenarioFileName() {
         return this.scenarioFileName ;
     }
 
     public long getNextId() {
         return counter.incrementAndGet() ;
+    }
+
+    public String getCpuhogUrl() {
+        return this.cpuhogUrl;
+    }
+
+    public String getMemhogUrl() {
+        return this.memhogUrl;
+    }
+
+    public String getDatahogUrl() {
+        return this.datahogUrl ;
     }
 
     @Bean
