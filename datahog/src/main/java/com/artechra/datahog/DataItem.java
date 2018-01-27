@@ -5,20 +5,12 @@ package com.artechra.datahog;
  */
 public class DataItem {
     private int id ;
-    private String dummyData ;
+    private String payload ;
 
 
-    public DataItem(final int id, String dummyData) {
+    public DataItem(final int id, String payload) {
         this.id = id;
-        this.dummyData = dummyData;
-    }
-
-    public int getCount() {
-        return 99;
-    }
-
-    public void setCount() {
-
+        this.payload = payload;
     }
 
     public int getId() {
@@ -29,18 +21,18 @@ public class DataItem {
         this.id = id;
     }
 
-    public String getDummyData() {
-        return dummyData;
+    public String getPayload() {
+        return payload;
     }
 
-    public void setDummyData(final String dummyData) {
-        this.dummyData = dummyData;
+    public void setPayload(final String payload) {
+        this.payload = payload;
     }
 
     @Override public String toString() {
         return "DataItem{" +
                 "id='" + id + '\'' +
-                ", dummyData='" + dummyData + '\'' +
+                ", payload='" + payload + '\'' +
                 '}';
     }
 }
