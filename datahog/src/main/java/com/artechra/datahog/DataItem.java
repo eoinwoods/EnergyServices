@@ -5,11 +5,18 @@ package com.artechra.datahog;
  */
 public class DataItem {
     private int id ;
+    private long timestamp ;
     private String payload ;
 
-
-    public DataItem(final int id, String payload) {
+    /**
+     * Construct a Data Item to take space in a MongoDB database
+     * @param id a caller generated ID which is intended to be unique but this is not enforced
+     * @param timestamp a caller generated millisecond timestamp for the record (probably System.currentTimeMillis())
+     * @param payload the data to write to take up space
+     */
+    public DataItem(final int id, long timestamp, String payload) {
         this.id = id;
+        this.timestamp = timestamp ;
         this.payload = payload;
     }
 
@@ -19,6 +26,14 @@ public class DataItem {
 
     public void setId(final int id) {
         this.id = id;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(final long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getPayload() {
@@ -31,8 +46,9 @@ public class DataItem {
 
     @Override public String toString() {
         return "DataItem{" +
-                "id='" + id + '\'' +
-                ", payload='" + payload + '\'' +
-                '}';
+                "id='" + id + "', " +
+                "timestamp='" + timestamp + "', " +
+                ", payload='" + payload + "'" +
+                "}";
     }
 }

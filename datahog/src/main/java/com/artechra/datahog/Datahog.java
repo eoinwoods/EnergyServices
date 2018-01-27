@@ -50,9 +50,9 @@ public class Datahog {
 
     protected void storeData(int mbytes) {
         LOG.info(String.format("Storing %d 1024 byte blocks", mbytes));
+        MongoOperations mongoOps = new MongoTemplate(this.mongoConn, this.mongoDatabase);
         for (int i = 1; i <= mbytes; i++) {
-            DataItem dataItem = createDataItem(2014);
-            MongoOperations mongoOps = new MongoTemplate(this.mongoConn, this.mongoDatabase);
+            DataItem dataItem = createDataItem(1024);
             mongoOps.insert(dataItem);
         }
     }
@@ -62,7 +62,7 @@ public class Datahog {
         byte[] payloadBytes = allocateByteArray(bytes) ;
         String data = Base64.getEncoder().encodeToString(payloadBytes) ;
         dummyData.append(data) ;
-        return new DataItem(rand.nextInt(), dummyData.toString()) ;
+        return new DataItem(rand.nextInt(), System.currentTimeMillis(), dummyData.toString()) ;
     }
 
     protected byte[] allocateByteArray(int sizeBytes) {

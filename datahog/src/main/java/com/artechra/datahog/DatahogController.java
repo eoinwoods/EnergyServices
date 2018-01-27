@@ -17,7 +17,7 @@ public class DatahogController {
     public Datahog hogdata(@RequestParam(value="data_mb", defaultValue="1") int mem_mb) {
         MongoClient mongoClient = new MongoClient() ;
         String databaseName = "database" ;
-        return new Datahog(counter.incrementAndGet(), mem_mb, mongoClient) ;
+        return new Datahog(counter.incrementAndGet(), mem_mb, mongoClient, databaseName) ;
     }
 }
 
