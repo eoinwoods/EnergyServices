@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DatahogController {
 
+    final static String MONGODB_HOST = "datahogdb" ;
+    final static String MONGODB_DB   = "apollo" ;
+
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/hogdata")
     public Datahog hogdata(@RequestParam(value="data_mb", defaultValue="1") int mem_mb) {
-        MongoClient mongoClient = new MongoClient() ;
-        String databaseName = "database" ;
-        return new Datahog(counter.incrementAndGet(), mem_mb, mongoClient, databaseName) ;
+        MongoClient mongoClient = new MongoClient(MONGODB_HOST) ;
+        return new Datahog(counter.incrementAndGet(), mem_mb, mongoClient, MONGODB_DB) ;
     }
 }
 
