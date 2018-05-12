@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.7.RELEASE'
+    id 'com.palantir.docker'version '0.17.2'
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'com.palantir.docker'
+
+dependencies {
+ compile("org.springframework.boot:spring-boot-starter-web")
+ compile("org.springframework.boot:spring-boot-starter-actuator")
+ compile "org.springframework.cloud:spring-cloud-starter-zipkin:1.3.0.RELEASE"
+ testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    baseName = 'fiohog-service'
+}
+
+def serverport = "9005"
+group = "eoinwoods"
+
+docker {
+    name "${project.group}/${jar.baseName}"
+    dockerfile file("etc/Dockerfile")
+    files jar.archivePath
+    buildArgs(['JAR_FILE':"${jar.archiveName}", 'SERVER_PORT':serverport])
+}
+
+
+
