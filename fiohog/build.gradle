@@ -19,7 +19,7 @@ jar {
     baseName = 'fiohog-service'
 }
 
-def serverport = "9005"
+def serverport = "9004"
 group = "eoinwoods"
 
 docker {
