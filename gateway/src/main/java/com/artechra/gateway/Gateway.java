@@ -74,6 +74,10 @@ public class Gateway {
     }
 
     private String callDataHog(Invocation inv) {
-        throw new IllegalStateException("callDataHog() not yet implemented");
+        String dataMb = inv.getParams().get("data_mb");
+        String invocationUrl = this.datahogUrl + "?data_mb={data_mb}" ;
+        String result = this.restTemplate
+                .getForObject(invocationUrl, String.class, dataMb);
+        return result;
     }
 }

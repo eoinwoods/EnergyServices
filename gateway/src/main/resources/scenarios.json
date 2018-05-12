@@ -32,6 +32,77 @@
                 }
             }
         ]
+    },
+    {
+        "name" : "data-500mb-4times",
+        "invocations" : [
+            {
+                "serviceName" : "datahog",
+                "params" : {
+                    "data_mb" : "500"
+                }
+            },
+            {
+                "serviceName" : "datahog",
+                "params" : {
+                    "data_mb" : "500"
+                }
+            },
+            {
+                "serviceName" : "datahog",
+                "params" : {
+                    "data_mb" : "500"
+                }
+            },
+            {
+                "serviceName" : "datahog",
+                "params" : {
+                    "data_mb" : "500"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "cpu-data-mix",
+        "invocations" : [
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "2000"
+                }
+            },
+            {
+                "serviceName" : "datahog",
+                "params" : {
+                    "data_mb" : "800"
+                }
+            },
+            {
+                "serviceName" : "datahog",
+                "params" : {
+                    "data_mb" : "10"
+                }
+            },
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "500"
+                }
+            },
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "3000"
+                }
+            },
+            {
+                "serviceName" : "datahog",
+                "params" : {
+                    "data_mb" : "1000"
+                }
+            }
+        ]
+
     }
 
 ]
