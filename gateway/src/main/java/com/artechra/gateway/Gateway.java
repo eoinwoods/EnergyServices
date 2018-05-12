@@ -25,6 +25,8 @@ public class Gateway {
     private String memhogUrl;
     @Value("#{appConfig.getDatahogUrl()}")
     private String datahogUrl;
+    @Value("#{appConfig.getFiohogUrl()}")
+    private String fiohogUrl;
 
     public Gateway(@Value("#{appConfig.getNextId()}") long id, ScenarioRepository scenarioRepository) {
         this.id = id;
@@ -53,6 +55,9 @@ public class Gateway {
             case "datahog":
                 callDataHog(i);
                 break;
+            case "fiohog":
+                callFioHog(i);
+                break;
             default:
                 throw new IllegalStateException(
                         "Unrecognised service " + i.getServiceName() + " for invocation -- aborted");
@@ -76,6 +81,14 @@ public class Gateway {
     private String callDataHog(Invocation inv) {
         String dataMb = inv.getParams().get("data_mb");
         String invocationUrl = this.datahogUrl + "?data_mb={data_mb}" ;
+        String result = this.restTemplate
+                .getForObject(invocationUrl, String.class, dataMb);
+        return result;
+    }
+
+    private String callFioHog(Invocation inv) {
+        String dataMb = inv.getParams().get("data_mb");
+        String invocationUrl = this.fiohogUrl + "?data_mb={data_mb}";
         String result = this.restTemplate
                 .getForObject(invocationUrl, String.class, dataMb);
         return result;
