@@ -5,9 +5,11 @@ that are intended for investigating energy consumption at an application level.
 
 The services are:
 
-* Burner  - a microservice that does nothing but "burn" 1s of cpu time
+* Cpuhog  - a microservice that does nothing but "burn" 1s of cpu time
 * Memhog  - a microservice that uses memory when invoked
 * Datahog - a microservice that writes data to its own MongoDB instance
+* Fiohog  - a microservice that writes data to the local file system
+* Gateway - a microservice that runs scenarios using the other services
 
 Build the applications by running "./gradlew build" in each subdirectory.
 
