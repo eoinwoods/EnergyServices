@@ -7,23 +7,34 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import com.artechra.fiohog.DataItem;
-
 public class Fiohog {
+
+    private final int BYTES_FOR_2014_B64CHARS = 767 ;
 
     private final Logger LOG = Logger.getLogger(Fiohog.class.getName());
 
     private Random rand = new Random();
     private final long id;
     private final int data_mb;
+    private final boolean deleteFileOnExit ;
+    private File dataFile ;
 
-    public Fiohog(long id, int data_mb) {
+    public Fiohog(long id, int data_mb, boolean deleteFileOnExit) {
         this.id = id;
         this.data_mb = data_mb;
+        this.deleteFileOnExit = deleteFileOnExit ;
+    }
+
+    public Fiohog(long id, int data_mb) {
+        this(id, data_mb, true) ;
     }
 
     private File createTempFile() throws IOException {
-        return File.createTempFile("fiohog", "txt");
+        File tempFile =  File.createTempFile("fiohog.", ".txt");
+        if (this.deleteFileOnExit) {
+            tempFile.deleteOnExit();
+        }
+        return tempFile ;
     }
 
     public long getId() {
@@ -32,26 +43,30 @@ public class Fiohog {
 
     public String getContent() throws IOException {
         LOG.info(String.format("Fiohog called to store %d MB of data", this.data_mb));
-        File dataFile = createTempFile();
         long startmsec = System.currentTimeMillis();
-        String tmpFileName = storeData(dataFile, this.data_mb);
+        this.dataFile = createTempFile() ;
+        storeData(this.dataFile, this.data_mb);
         long endmsec = System.currentTimeMillis();
         String retval = String
-                .format("Stored %d mb of data in %d msec in file %s", this.data_mb, (endmsec - startmsec), tmpFileName);
+                .format("Stored %d mb of data in %d msec in file %s", this.data_mb, (endmsec - startmsec), this.dataFile.getAbsolutePath());
         LOG.info("Completed Fiohog process returning '" +
                 retval + "')");
         return retval;
     }
 
-    private String storeData(File dataFile, int mbytes) throws IOException {
-        LOG.info(String.format("Storing %d 1024 byte blocks", mbytes));
+    public String getTemporaryFilePath() {
+        return this.dataFile == null ? null : this.dataFile.getAbsolutePath() ;
+    }
+
+    private void storeData(File dataFile, int mbytes) throws IOException {
+        int mbyteBlockCount = 1024 * mbytes ;
+        LOG.info(String.format("Storing %d 1024 byte blocks", mbyteBlockCount));
         FileWriter fw = new FileWriter(dataFile);
-        for (int i = 1; i <= mbytes; i++) {
-            DataItem dataItem = createDataItem(1024);
+        for (int i = 1; i <= mbyteBlockCount; i++) {
+            DataItem dataItem = createDataItem(BYTES_FOR_2014_B64CHARS);
             fw.write(dataItem.getPayload());
         }
         fw.close();
-        return dataFile.getAbsolutePath();
     }
 
     protected DataItem createDataItem(int bytes) {

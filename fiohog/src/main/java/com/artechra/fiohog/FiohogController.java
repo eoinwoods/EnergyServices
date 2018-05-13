@@ -12,8 +12,8 @@ public class FiohogController {
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/hogdata")
-    public Fiohog hogdata(@RequestParam(value = "data_mb", defaultValue = "1") int mem_mb) {
-        return new Fiohog(counter.incrementAndGet(), mem_mb);
+    public Fiohog hogdata(@RequestParam(value = "data_mb", defaultValue = "1") int data_mb) {
+        return new Fiohog(counter.incrementAndGet(), data_mb);
     }
 }
 
