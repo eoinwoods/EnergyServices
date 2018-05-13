@@ -37,25 +37,25 @@
         "name" : "data-500mb-4times",
         "invocations" : [
             {
-                "serviceName" : "datahog",
+                "serviceName" : "fiohog",
                 "params" : {
                     "data_mb" : "500"
                 }
             },
             {
-                "serviceName" : "datahog",
+                "serviceName" : "fiohog",
                 "params" : {
                     "data_mb" : "500"
                 }
             },
             {
-                "serviceName" : "datahog",
+                "serviceName" : "fiohog",
                 "params" : {
                     "data_mb" : "500"
                 }
             },
             {
-                "serviceName" : "datahog",
+                "serviceName" : "fiohog",
                 "params" : {
                     "data_mb" : "500"
                 }
@@ -72,13 +72,13 @@
                 }
             },
             {
-                "serviceName" : "datahog",
+                "serviceName" : "fiohog",
                 "params" : {
                     "data_mb" : "800"
                 }
             },
             {
-                "serviceName" : "datahog",
+                "serviceName" : "fiohog",
                 "params" : {
                     "data_mb" : "10"
                 }
@@ -96,7 +96,7 @@
                 }
             },
             {
-                "serviceName" : "datahog",
+                "serviceName" : "fiohog",
                 "params" : {
                     "data_mb" : "1000"
                 }
