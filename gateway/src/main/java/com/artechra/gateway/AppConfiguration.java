@@ -23,6 +23,9 @@ public class AppConfiguration {
     @Value("${datahog.url}")
     private String datahogUrl ;
 
+    @Value("${fiohog.url}")
+    private String fiohogUrl ;
+
     public String getScenarioFileName() {
         return this.scenarioFileName ;
     }
@@ -41,6 +44,10 @@ public class AppConfiguration {
 
     public String getDatahogUrl() {
         return this.datahogUrl ;
+    }
+
+    public String getFiohogUrl() {
+        return this.fiohogUrl ;
     }
 
     @Bean
