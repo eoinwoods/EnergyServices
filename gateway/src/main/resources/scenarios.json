@@ -11,6 +11,19 @@
         ]
     },
     {
+        "name" : "single-cpu-50-times",
+        "repetitions" : 50,
+        "pauseTimeMsec" : 10,
+        "invocations" : [
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "2500"
+                }
+            }
+        ]
+    },
+    {
         "name" : "three-cpu",
         "invocations" : [
             {

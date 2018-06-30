@@ -1,5 +1,6 @@
 package com.artechra.gateway;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,28 @@ public class Gateway {
         if (s == null) {
             throw new IllegalArgumentException("Scenario " + scenarioName + " not found");
         }
-        LOG.info("Gateway running scenario " + scenarioName);
+        int repetitions = s.getRepetitions();
+        if (repetitions <= 0) {
+            LOG.info("Found repetition value of " + repetitions + " -- setting to 1") ;
+            repetitions = 1 ;
+        }
+        int pauseTimeMsec = s.getPauseTimeMsec() ;
+        String repetitionClause = (repetitions > 1 ? " " + repetitions + " times with " +
+                pauseTimeMsec + "ms pause between" : "") ;
+        LOG.info("Gateway running scenario " + scenarioName + repetitionClause) ;
 
+        StringBuilder ret = new StringBuilder("||");
+        for (int i=1; i <= repetitions; i++) {
+            LOG.info("Scenario " + scenarioName + " iteration " + i) ;
+            ret.append(performInvocations((s.getInvocations()))) ;
+            ret.append("|| ") ;
+        }
+        return ret.toString();
+    }
+
+    private String performInvocations(final List<Invocation> invocations) {
         StringBuilder ret = new StringBuilder("|");
-        for (Invocation i : s.getInvocations()) {
+        for (Invocation i : invocations) {
             LOG.info("--> Calling " + i.getServiceName());
             ret.append(i.toString());
             ret.append("|");
