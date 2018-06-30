@@ -11,7 +11,11 @@ The services are:
 * Fiohog  - a microservice that writes data to the local file system
 * Gateway - a microservice that runs scenarios using the other services
 
-Build the applications by running "./gradlew build" in each subdirectory.
+Build the applications by running "../gradlew build" in each subdirectory
+or "./gradlew build" in the root directory to build everything.
+
+To ship the containers for all services run "./gradlew build docker" in
+this directory and then run push-containers.sh to push to Docker Hub.
 
 These are Spring Boot applications, so just run them as 
 "java -jar build/libs/jarname.jar" in each subdirectory.
