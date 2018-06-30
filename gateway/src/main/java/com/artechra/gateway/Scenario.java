@@ -5,6 +5,8 @@ import java.util.List;
 public class Scenario {
 
     private String name ;
+    private int    repetitions ;
+    private int    pauseTimeMsec ;
     private List<Invocation> invocations ;
 
     // Note that Jackson needs the default constructor unless annotations are used
@@ -20,17 +22,21 @@ public class Scenario {
     public String getName() {
         return name;
     }
-
-    public void setName(final String name) {
-        this.name = name;
+    public void setName(final String _name) {
+        this.name = _name;
     }
+
+    public int getRepetitions() { return repetitions; }
+    public void setRepetitions(int _repetitions) { this.repetitions = _repetitions; }
+
+    public int getPauseTimeMsec() { return pauseTimeMsec; }
+    public void setPauseTimeMsec(int _pauseTimeMsec) { this.pauseTimeMsec = _pauseTimeMsec; }
 
     public List<Invocation> getInvocations() {
         return invocations;
     }
-
-    public void setInvocations(final List<Invocation> invocations) {
-        this.invocations = invocations;
+    public void setInvocations(final List<Invocation> _invocations) {
+        this.invocations = _invocations;
     }
 
 

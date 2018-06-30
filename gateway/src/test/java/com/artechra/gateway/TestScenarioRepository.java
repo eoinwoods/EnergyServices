@@ -122,4 +122,21 @@ public class TestScenarioRepository {
 
     }
 
+    @Test
+    public void testThatRepetitionCountIsExtractedCorrectly() {
+        // Note that a separate JSON file is used, this proves that the repetition
+        // related items are optional as the other JSON files haven't been updated
+        // after they were added
+        ScenarioRepository sr = new ScenarioRepository("repeated_scenarios.json") ;
+        Scenario s1 = sr.getScenario("scenario1") ;
+        assertEquals("Wrong repetition value returned", 1, s1.getRepetitions()) ;
+    }
+
+    @Test
+    public void testThatRepetitionPauseIsExtractedCorrectly() {
+        ScenarioRepository sr = new ScenarioRepository("repeated_scenarios.json") ;
+        Scenario s1 = sr.getScenario("scenario2") ;
+        assertEquals("Wrong repetition value returned", 37, s1.getRepetitions()) ;
+        assertEquals("Wrong pause returned", 250, s1.getPauseTimeMsec()) ;
+    }
 }

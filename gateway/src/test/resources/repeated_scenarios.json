@@ -1,0 +1,18 @@
+[
+    {
+        "name" : "scenario1",
+        "repetitions" : 1,
+        "invocations" : []
+    },
+    {
+        "name" : "scenario2",
+        "repetitions" : 37,
+        "pauseTimeMsec" : 250,
+        "invocations" : [
+            {
+                "serviceName" : "s2",
+                "params" : {}
+            }
+        ]
+    }
+]
