@@ -44,8 +44,10 @@ class Cpuhog {
             usageMsec = burnMsecOfCpuTime(this.time_msec);
         }
         long end = System.currentTimeMillis();
-        return String.format("Burned %d msec CPU time in %d msec",
+        String ret = String.format("Burned %d msec CPU time in %d msec",
                 usageMsec, (end - start));
+        LOG.info("Cpuhog " + this.id + " returning: " + ret) ;
+        return ret ;
     }
 
     private long burnMsecOfCpuTime(long msec) {
