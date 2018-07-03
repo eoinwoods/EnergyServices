@@ -12,8 +12,9 @@ public class CpuhogController {
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/burncpu")
-    public Cpuhog burncpu(@RequestParam(value="time_msec", defaultValue="1000") int time_msec) {
-        return new Cpuhog(counter.incrementAndGet(), time_msec) ;
+    public Cpuhog burncpu(@RequestParam(value="time_msec", defaultValue="1000") int time_msec,
+                          @RequestParam(value="wallclock", defaultValue="false") boolean wallclockTime) {
+        return new Cpuhog(counter.incrementAndGet(), time_msec, wallclockTime) ;
     }
 }
 

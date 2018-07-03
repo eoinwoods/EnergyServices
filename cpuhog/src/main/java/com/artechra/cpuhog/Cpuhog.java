@@ -1,57 +1,80 @@
 package com.artechra.cpuhog;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 import java.util.logging.Logger;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 
-public class Cpuhog {
+class Cpuhog {
 
+    private static final long MILLI_TO_NANO_MULTIPLIER = 1_000_000;
+    private final ThreadMXBean threadBean = ManagementFactory.getThreadMXBean();
     private final Logger LOG = Logger.getLogger(Cpuhog.class.getName());
-    private KeyGenerator kg ;
-    private Cipher cipher ;
+    private final boolean wallClockDuration;
+    private Cipher cipher;
+    private final long id ;
+    private final int time_msec;
 
-
-    private final long id;
-    private final int  time_msec;
-
-    public Cpuhog(long id, int time_msec) {
-        this.id = id;
+    Cpuhog(long id, int time_msec, boolean wallclockTime) {
+        this.id = id ;
         this.time_msec = time_msec;
+        this.wallClockDuration = wallclockTime;
+        final KeyGenerator kg;
         try {
-            this.kg = KeyGenerator.getInstance("AES");
+            kg = KeyGenerator.getInstance("AES");
             this.cipher = Cipher.getInstance("AES");
-            this.cipher.init(Cipher.ENCRYPT_MODE, kg.generateKey()) ;
-        } catch(Exception e) {
+            this.cipher.init(Cipher.ENCRYPT_MODE, kg.generateKey());
+        } catch (Exception e) {
             throw new IllegalStateException("Unable to initialise cryptographic system to burn CPU", e);
         }
-        this.kg.init(128);
+        kg.init(128);
 
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getContent() {
-        LOG.info("Cpuhog called for " + this.time_msec + " msec") ;
-        long start = System.currentTimeMillis() ;
-        burnTimeForMsec(this.time_msec);
-        long end = System.currentTimeMillis() ;
-        String retval = String.format("Burned time for %d msec", (end - start)) ;
-        return retval;
+        LOG.info("Cpuhog " + this.id + " called for " + this.time_msec + " msec (" +
+                (this.wallClockDuration ? "wallclock duration" : "CPU usage") + ")");
+        long start = System.currentTimeMillis();
+        long usageMsec;
+        if (wallClockDuration) {
+            usageMsec = burnTimeForMsec(this.time_msec);
+        } else {
+            usageMsec = burnMsecOfCpuTime(this.time_msec);
+        }
+        long end = System.currentTimeMillis();
+        return String.format("Burned %d msec CPU time in %d msec",
+                usageMsec, (end - start));
     }
 
-    private void burnTimeForMsec(long msec) {
-      try {
-        long startTime = System.currentTimeMillis() ;
-        while(System.currentTimeMillis() < startTime + msec) {
-            this.cipher.doFinal("ABCDEFGHIJKLMNOPQRSTUVWXYZ".getBytes());
-        }
-     } catch(Exception e) {
-        LOG.warning("Exception while burning CPU: " + e);
-        throw new RuntimeException("Exception while burning CPU", e) ;
+    private long burnMsecOfCpuTime(long msec) {
 
-     }
+        long startUsageNanoSec = threadBean.getCurrentThreadCpuTime();
+        while (threadBean.getCurrentThreadCpuTime() < startUsageNanoSec + (msec * MILLI_TO_NANO_MULTIPLIER)) {
+            try {
+                this.cipher.doFinal("ABCDEFGHIJKLMNOPQRSTUVWXYZ".getBytes());
+            } catch (Exception e) {
+                LOG.warning("Exception while burning CPU: " + e);
+                throw new RuntimeException("Exception while burning CPU", e);
+            }
+        }
+        long endUsageNanoSec = threadBean.getCurrentThreadCpuTime();
+        return (endUsageNanoSec - startUsageNanoSec) / MILLI_TO_NANO_MULTIPLIER;
+    }
+
+    private long burnTimeForMsec(long msec) {
+        long startTime = System.currentTimeMillis();
+        long startUsageNanoSec = threadBean.getCurrentThreadCpuTime();
+        try {
+            while (System.currentTimeMillis() < startTime + msec) {
+                this.cipher.doFinal("ABCDEFGHIJKLMNOPQRSTUVWXYZ".getBytes());
+            }
+        } catch (Exception e) {
+            LOG.warning("Exception while burning CPU: " + e);
+            throw new RuntimeException("Exception while burning CPU", e);
+        }
+        long endUsageNanoSec = threadBean.getCurrentThreadCpuTime();
+        return (endUsageNanoSec - startUsageNanoSec) / MILLI_TO_NANO_MULTIPLIER;
     }
 }
