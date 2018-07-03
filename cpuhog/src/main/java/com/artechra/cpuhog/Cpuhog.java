@@ -36,13 +36,13 @@ public class Cpuhog {
     public String getContent() {
         LOG.info("Cpuhog called for " + this.time_msec + " msec") ;
         long start = System.currentTimeMillis() ;
-        burnTimeMsec(this.time_msec) ;
+        burnTimeForMsec(this.time_msec);
         long end = System.currentTimeMillis() ;
         String retval = String.format("Burned time for %d msec", (end - start)) ;
         return retval;
     }
 
-    private void burnTimeMsec(long msec) {
+    private void burnTimeForMsec(long msec) {
       try {
         long startTime = System.currentTimeMillis() ;
         while(System.currentTimeMillis() < startTime + msec) {
