@@ -11,9 +11,9 @@
         ]
     },
     {
-        "name" : "single-cpu-50-times",
+        "name" : "single-cpu-x50-pause",
         "repetitions" : 50,
-        "pauseTimeMsec" : 10,
+        "pauseTimeMsec" : 500,
         "invocations" : [
             {
                 "serviceName" : "cpuhog",
@@ -24,7 +24,21 @@
         ]
     },
     {
-        "name" : "three-cpu",
+        "name" : "single-cpu-x50",
+        "repetitions" : 50,
+        "invocations" : [
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "2500"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "three-cpu-x50",
+        "repetitions" : 50,
+        "pauseTimeMsec" : 100,
         "invocations" : [
             {
                 "serviceName" : "cpuhog",
@@ -47,7 +61,40 @@
         ]
     },
     {
-        "name" : "data-500mb-4times",
+        "name" : "data-100mbx4-x10",
+        "repetitions" : 10,
+        "pauseTimeMsec" : 100,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-500mbx4-x10",
+        "repetitions" : 10,
+        "pauseTimeMsec" : 100,
         "invocations" : [
             {
                 "serviceName" : "fiohog",
@@ -76,7 +123,40 @@
         ]
     },
     {
-        "name" : "cpu-data-mix",
+        "name" : "data-1gbx4-x10",
+        "repetitions" : 10,
+        "pauseTimeMsec" : 100,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "1000"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "1000"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "1000"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "1000"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "cpu-data-mix-x10",
+        "repetitions" : 10,
+        "pauseTimeMsec" : 100,
         "invocations" : [
             {
                 "serviceName" : "cpuhog",
@@ -116,6 +196,29 @@
             }
         ]
 
+    },
+    {
+        "name" : "short-cpu-x100",
+        "repetitions" : 100,
+        "invocations" : [
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "500"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "long-cpu-x10",
+        "repetitions" : 10,
+        "invocations" : [
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "5000"
+                }
+            }
+        ]
     }
-
 ]
