@@ -198,7 +198,19 @@
 
     },
     {
-        "name" : "short-cpu-x100",
+        "name" : "short-cpu-x1000",
+        "repetitions" : 1000,
+        "invocations" : [
+            {
+                "serviceName" : "cpuhog",
+                "params" : {
+                    "time_msec" : "50"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "medium-cpu-x100",
         "repetitions" : 100,
         "invocations" : [
             {
