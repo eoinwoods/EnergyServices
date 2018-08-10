@@ -54,6 +54,11 @@ public class Gateway {
             LOG.info("Scenario " + scenarioName + " iteration " + i) ;
             ret.append(performInvocations((s.getInvocations()))) ;
             ret.append("|| ") ;
+            try {
+                Thread.sleep(pauseTimeMsec);
+            } catch(InterruptedException ie) {
+                LOG.info("Interrupted while sleeping: " + ie) ;
+            }
         }
         return ret.toString();
     }
