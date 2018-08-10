@@ -18,11 +18,13 @@ public class Fiohog {
     private final int data_mb;
     private final boolean deleteFileOnExit ;
     private File dataFile ;
+    private final DataItem[] dataItems ;
 
     public Fiohog(long id, int data_mb, boolean deleteFileOnExit) {
         this.id = id;
         this.data_mb = data_mb;
         this.deleteFileOnExit = deleteFileOnExit ;
+        this.dataItems = createDataItems(12, BYTES_FOR_2014_B64CHARS) ;
     }
 
     public Fiohog(long id, int data_mb) {
@@ -63,10 +65,18 @@ public class Fiohog {
         LOG.info(String.format("Storing %d 1024 byte blocks", mbyteBlockCount));
         FileWriter fw = new FileWriter(dataFile);
         for (int i = 1; i <= mbyteBlockCount; i++) {
-            DataItem dataItem = createDataItem(BYTES_FOR_2014_B64CHARS);
+            DataItem dataItem = this.dataItems[Math.abs(this.rand.nextInt()) % this.dataItems.length] ;
             fw.write(dataItem.getPayload());
         }
         fw.close();
+    }
+
+    private DataItem[] createDataItems(int numBlocks, int sizeBytes) {
+        DataItem[] ret = new DataItem[numBlocks];
+        for (int i=0; i < numBlocks; i++) {
+            ret[i] = createDataItem(sizeBytes) ;
+        }
+        return ret ;
     }
 
     protected DataItem createDataItem(int bytes) {
@@ -83,5 +93,6 @@ public class Fiohog {
         rand.nextBytes(ret);
         return ret;
     }
+
 
 }
