@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# Mac specific meta data
+.DS_Store
+
 # Build directories
 build/
 .gradle/
