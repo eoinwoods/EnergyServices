@@ -61,8 +61,7 @@
         ]
     },
     {
-        "name" : "data-100mbx4-x10",
-        "repetitions" : 10,
+        "name" : "data-100mbx4",
         "pauseTimeMsec" : 100,
         "invocations" : [
             {
@@ -92,8 +91,7 @@
         ]
     },
     {
-        "name" : "data-500mbx4-x10",
-        "repetitions" : 10,
+        "name" : "data-500mbx4",
         "pauseTimeMsec" : 100,
         "invocations" : [
             {
@@ -123,8 +121,7 @@
         ]
     },
     {
-        "name" : "data-1gbx4-x10",
-        "repetitions" : 10,
+        "name" : "data-1gbx4",
         "pauseTimeMsec" : 100,
         "invocations" : [
             {
@@ -154,8 +151,8 @@
         ]
     },
     {
-        "name" : "cpu-data-mix-x10",
-        "repetitions" : 10,
+        "name" : "cpu-data-mix-x5",
+        "repetitions" : 5,
         "pauseTimeMsec" : 100,
         "invocations" : [
             {
@@ -229,6 +226,196 @@
                 "serviceName" : "cpuhog",
                 "params" : {
                     "time_msec" : "5000"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-100mbx6-x5",
+        "repetitions" : 5,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-200mbx3-x5",
+        "repetitions" : 5,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "200"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "200"
+                }
+            },
+            {
+                "serviceName": "fiohog",
+                "params": {
+                    "data_mb": "200"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-300mbx2-x5",
+        "repetitions" : 5,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "300"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "300"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-500mbx2-x3",
+        "repetitions" : 3,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "500"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "500"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-100mbx4-x3",
+        "repetitions" : 3,
+        "pauseTimeMsec" : 50,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "100"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-200mbx3-x2",
+        "repetitions" : 2,
+        "pauseTimeMsec" : 50,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "200"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "200"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "200"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-300mbx2-x2",
+        "repetitions" : 2,
+        "pauseTimeMsec" : 50,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "300"
+                }
+            },
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "300"
+                }
+            }
+        ]
+    },
+    {
+        "name" : "data-400mb-x3",
+        "repetitions" : 3,
+        "pauseTimeMsec" : 50,
+        "invocations" : [
+            {
+                "serviceName" : "fiohog",
+                "params" : {
+                    "data_mb" : "400"
                 }
             }
         ]

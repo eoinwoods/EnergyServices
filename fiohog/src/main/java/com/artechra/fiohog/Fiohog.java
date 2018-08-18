@@ -9,22 +9,21 @@ import java.util.logging.Logger;
 
 public class Fiohog {
 
-    private final int BYTES_FOR_2014_B64CHARS = 767 ;
+    private static final Logger LOG = Logger.getLogger(Fiohog.class.getName());
+    private static Random rand = new Random();
+    private static final int BYTES_FOR_2014_B64CHARS = 767 ;
+    private static final DataItem[] dataItems = createDataItems(12, BYTES_FOR_2014_B64CHARS) ;
 
-    private final Logger LOG = Logger.getLogger(Fiohog.class.getName());
 
-    private Random rand = new Random();
     private final long id;
     private final int data_mb;
     private final boolean deleteFileOnExit ;
     private File dataFile ;
-    private final DataItem[] dataItems ;
 
     public Fiohog(long id, int data_mb, boolean deleteFileOnExit) {
         this.id = id;
         this.data_mb = data_mb;
         this.deleteFileOnExit = deleteFileOnExit ;
-        this.dataItems = createDataItems(12, BYTES_FOR_2014_B64CHARS) ;
     }
 
     public Fiohog(long id, int data_mb) {
@@ -71,7 +70,8 @@ public class Fiohog {
         fw.close();
     }
 
-    private DataItem[] createDataItems(int numBlocks, int sizeBytes) {
+    private static DataItem[] createDataItems(int numBlocks, int sizeBytes) {
+        LOG.info("Fiohog creating " + numBlocks + " reusable data blocks of size " + sizeBytes + " bytes");
         DataItem[] ret = new DataItem[numBlocks];
         for (int i=0; i < numBlocks; i++) {
             ret[i] = createDataItem(sizeBytes) ;
@@ -79,7 +79,7 @@ public class Fiohog {
         return ret ;
     }
 
-    protected DataItem createDataItem(int bytes) {
+    protected static DataItem createDataItem(int bytes) {
         StringBuilder dummyData = new StringBuilder();
         byte[] payloadBytes = allocateByteArray(bytes);
         String data = Base64.getEncoder().encodeToString(payloadBytes);
@@ -87,7 +87,7 @@ public class Fiohog {
         return new DataItem(rand.nextInt(), System.currentTimeMillis(), dummyData.toString());
     }
 
-    protected byte[] allocateByteArray(int sizeBytes) {
+    protected static byte[] allocateByteArray(int sizeBytes) {
         byte[] ret = new byte[sizeBytes];
         Random rand = new Random();
         rand.nextBytes(ret);
