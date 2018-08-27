@@ -333,28 +333,10 @@
         ]
     },
     {
-        "name" : "data-100mbx4-x3",
-        "repetitions" : 3,
-        "pauseTimeMsec" : 50,
+        "name" : "data-100mb-x12-pause",
+        "repetitions" : 12,
+        "pauseTimeMsec" : 4100,
         "invocations" : [
-            {
-                "serviceName" : "fiohog",
-                "params" : {
-                    "data_mb" : "100"
-                }
-            },
-            {
-                "serviceName" : "fiohog",
-                "params" : {
-                    "data_mb" : "100"
-                }
-            },
-            {
-                "serviceName" : "fiohog",
-                "params" : {
-                    "data_mb" : "100"
-                }
-            },
             {
                 "serviceName" : "fiohog",
                 "params" : {
@@ -364,22 +346,10 @@
         ]
     },
     {
-        "name" : "data-200mbx3-x2",
-        "repetitions" : 2,
-        "pauseTimeMsec" : 50,
+        "name" : "data-200mb-x6-pause",
+        "repetitions" : 6,
+        "pauseTimeMsec" : 8300,
         "invocations" : [
-            {
-                "serviceName" : "fiohog",
-                "params" : {
-                    "data_mb" : "200"
-                }
-            },
-            {
-                "serviceName" : "fiohog",
-                "params" : {
-                    "data_mb" : "200"
-                }
-            },
             {
                 "serviceName" : "fiohog",
                 "params" : {
@@ -389,28 +359,22 @@
         ]
     },
     {
-        "name" : "data-300mbx2-x2",
-        "repetitions" : 2,
-        "pauseTimeMsec" : 50,
+        "name" : "data-300mb-x4-pause",
+        "repetitions" : 4,
+        "pauseTimeMsec" : 12500,
         "invocations" : [
             {
                 "serviceName" : "fiohog",
                 "params" : {
                     "data_mb" : "300"
                 }
-            },
-            {
-                "serviceName" : "fiohog",
-                "params" : {
-                    "data_mb" : "300"
-                }
             }
         ]
     },
     {
-        "name" : "data-400mb-x3",
+        "name" : "data-400mb-x3-pause",
         "repetitions" : 3,
-        "pauseTimeMsec" : 50,
+        "pauseTimeMsec" : 16600,
         "invocations" : [
             {
                 "serviceName" : "fiohog",
